@@ -1,0 +1,17 @@
+{
+  "name": "sls-sqleton",
+  "version": "1.0.0",
+  "description": "Serverless function that allows to upload a sqlite database to generate an SVG from it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["graphviz", "sqlite", "svg"],
+  "author": "Alejandro Oviedo <alejandro.oviedo.g@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "lambda-multipart-parser": "0.0.2",
+    "rimraf-promise": "^2.0.0",
+    "sqleton": "^1.4.2"
+  }
+}

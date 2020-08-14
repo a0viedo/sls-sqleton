@@ -1,0 +1,42 @@
+service: sls-sqleton
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment: ${file(.env.yml):}
+
+layers:
+  graphviz:
+    path: layers
+    allowedAccounts:
+      - '*' # ALL accounts!
+
+functions:
+  generate-svg-binary:
+    handler: index.generate
+    events:
+      - http:
+          path: /binary
+          method: POST
+          cors: true
+    layers:
+      - { Ref: GraphvizLambdaLayer }
+  generate-svg-multipart:
+    handler: index.generateWithMultipart
+    events:
+      - http:
+          path: /with-multipart
+          method: POST
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Cache-Control
+              - X-Requested-With
+    layers:
+      - { Ref: GraphvizLambdaLayer }
